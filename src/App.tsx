@@ -1,13 +1,20 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query'
+import Home from 'views/Home';
+
+const qc = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="text-7xl text-red-500 flex justify-center items-center w-screen h-screen">
-      Test
-    </div>
-  )
+    <QueryClientProvider client={qc}>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </Router>
+    </QueryClientProvider>
+  );
 }
 
 export default App
