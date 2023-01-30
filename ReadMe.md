@@ -4,7 +4,7 @@
 after cloning this repository, run `npm install` or `yarn install` to install all dependencies.
 
 ## 2. Run
-run `npm dev` or `yarn dev` to start the dev server.
+run `npm run dev` or `yarn dev` to start the dev server.
 
 
 ## 3. Build
