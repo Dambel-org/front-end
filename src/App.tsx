@@ -8,14 +8,14 @@ const qc = new QueryClient();
 function App() {
 
   return (
-    // <QueryClientProvider client={qc}>
-    //   <Router>
-    //     <Routes>
-    //       <Route path='/' element={<Home />} />
-          <OwnerLogin/>
-       /* { </Routes>
+    <QueryClientProvider client={qc}>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/owner/login' element={<OwnerLogin />} />
+        </Routes>
       </Router>
-    </QueryClientProvider> }*/
+    </QueryClientProvider>
   );
 }
 
