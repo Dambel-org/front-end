@@ -23,7 +23,6 @@
   background-color: white;
   width: 70%;
   border-radius: 10px;
-  height: 90vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -33,7 +32,6 @@
 }
 
 .row > figure {
-  border: 1px red solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,12 +58,12 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   background: rgba(217, 217, 217, 0.18);
-  border: 1px red solid;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
 }
 
-.row > form > div {
+.row > form > div:nth-child(1) {
   width: 100%;
-  border: 1px red solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,21 +74,98 @@
       flex-wrap: wrap;
   direction: rtl;
   text-align: center;
+  padding: 65px 1px 40px 1px;
 }
 
-.row > form > div h1 {
+.row > form > div:nth-child(1) h1 {
   width: 100%;
   font-size: 25px;
   color: #001D6E;
+  margin-bottom: 30px;
 }
 
-.row > form > div h3 {
+.row > form > div:nth-child(1) h3 {
   color: #3A4750;
   width: 100%;
 }
 
 .row > form > .inputs {
-  height: 80%;
-  border: 1px #5d00ff solid;
+  padding: 50px 0px 50px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  width: 70%;
+}
+
+.row > form > .inputs > * {
+  margin: 2.5px;
+  color: #3A4750;
+  font-size: 16px;
+}
+
+.row > form > .inputs > label {
+  text-align: right;
+  font-size: 14px;
+}
+
+.row > form > .inputs > a {
+  direction: rtl;
+  text-align: right;
+  font-size: small;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #7FB5FF;
+}
+
+.row > form > .inputs > input {
+  direction: ltr;
+  background-color: white;
+  width: 100% !important;
+}
+
+.row > form > .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+  width: 70%;
+  padding: 0;
+  height: 30%;
+}
+
+.row > form > .buttons button:nth-child(1) {
+  color: white;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  background: #7FB5FF !important;
+}
+
+.row > form > .buttons button:nth-child(2) {
+  color: black;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  background: #ffffff !important;
+}
+
+.row > form > .buttons > a {
+  color: #7FB5FF;
+  font-size: 12px;
 }
 /*# sourceMappingURL=StyleLogin.css.map */
