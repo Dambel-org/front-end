@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Home from 'views/Home';
 import OwnerLogin from 'views/Owner/OwnerLogin';
+import OwnerRe from 'views/Owner/OwnerReg';
+import OwnerReg from 'views/Owner/OwnerReg';
 
 const qc = new QueryClient();
 
@@ -16,7 +18,8 @@ function App() {
     //     </Routes>
     //   </Router>
     // </QueryClientProvider>
-    <OwnerLogin />
+    // <OwnerLogin />
+    <OwnerReg/>
   );
 }
 

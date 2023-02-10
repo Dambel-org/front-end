@@ -7,7 +7,7 @@
 
 .wrapper {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,6 +60,7 @@
   background: #f4f4f4;
   -ms-flex-line-pack: start;
       align-content: flex-start;
+  border-radius: 10px;
 }
 
 .row > form > div:nth-child(1) {
@@ -73,15 +74,14 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   direction: rtl;
-  text-align: center;
-  padding: 65px 1px 40px 1px;
+  padding: 20px 65px 0px 0px;
 }
 
 .row > form > div:nth-child(1) h1 {
   width: 100%;
-  font-size: 25px;
+  font-size: 18px;
+  font-weight: bold;
   color: #001D6E;
-  margin-bottom: 30px;
 }
 
 .row > form > div:nth-child(1) h3 {
@@ -131,6 +131,19 @@
   width: 100% !important;
 }
 
+.row > form > .inputs .form-control {
+  width: 100% !important;
+  direction: rtl;
+}
+
+.row > form > .inputs .form-control > .select {
+  background-color: #ffffff !important;
+}
+
+.row > form > .inputs .form-control > .select > option {
+  border: none !important;
+}
+
 .row > form > .buttons {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -167,5 +180,32 @@
 .row > form > .buttons > a {
   color: #7FB5FF;
   font-size: 12px;
+  text-align: center;
+  padding: 10px;
 }
-/*# sourceMappingURL=StyleLogin.css.map */
+
+.row > form > .buttons > figure {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.row > form > .buttons > figure img {
+  height: 100%;
+}
+
+@media screen and (max-width: 680px) {
+  form {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+}
+
+@media screen and (max-width: 1780px) {
+  form {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+}
+/*# sourceMappingURL=StyleReg.css.map */

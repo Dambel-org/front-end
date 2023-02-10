@@ -19,7 +19,7 @@ const OwnerLogin = () => {
 
           <div className="inputs">
             <label htmlFor="email" className='w-full'> آدرس ایمیل </label>
-            <input type="email" name="email" className="input input-bordered w-full max-w-xs" required/>
+            <input type="email" name="email" className="input input-bordered w-full max-w-xs" required />
             <label htmlFor="password" className='w-full'>گذرواژه </label>
             <input type="password" name="password" className="input input-bordered w-full max-w-xs" required />
             <a href="#" className='font-medium text-blue-600 dark:text-blue-500 hover:underline'>آیا رمز عبور خود را فراموش کرده اید؟</a>

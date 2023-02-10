@@ -6,10 +6,9 @@
 
 .wrapper {
     width: 100%;
-    height: 100vh;
+min-height: 100vh;
     display: flex;
     justify-content: center;
-
     align-items: center;
 }
 
@@ -40,7 +39,8 @@
         flex-wrap: wrap;
         background: rgb(244, 244, 244);
         align-content: flex-start;
-
+        border-radius: 10px;
+      
         >div {
             &:nth-child(1) {
                 width: 100%;
@@ -48,15 +48,13 @@
                 justify-content: center;
                 flex-wrap: wrap;
                 direction: rtl;
-                text-align: center;
-                padding: 65px 1px 40px 1px;
+                padding: 20px 65px 0px 0px;
 
                 h1 {
-
                     width: 100%;
-                    font-size: 25px;
+                    font-size: 18px;
+                    font-weight: bold;
                     color: #001D6E;
-                    margin-bottom: 30px;
                 }
 
                 h3 {
@@ -73,7 +71,7 @@
             flex-wrap: wrap;
             align-content: flex-start;
             width: 70%;
-           
+
 
             >* {
                 margin: 2.5px;
@@ -102,6 +100,19 @@
                 width: 100% !important;
 
             }
+
+            .form-control {
+                width: 100% !important;
+                direction: rtl;
+
+                >.select {
+                    background-color: #ffffff !important;
+
+                    >option {
+                        border: none !important;
+                    }
+                }
+            }
         }
 
         >.buttons {
@@ -112,6 +123,7 @@
             width: 70%;
             padding: 0;
             height: 30%;
+
             button {
                 &:nth-child(1) {
                     color: white;
@@ -120,6 +132,7 @@
                     font-size: 16px;
                     background: #7FB5FF !important;
                 }
+
                 &:nth-child(2) {
                     color: rgb(0, 0, 0);
                     outline: none;
@@ -132,8 +145,30 @@
             >a {
                 color: #7FB5FF;
                 font-size: 12px;
+                text-align: center;
+                padding: 10px;
+            }
+
+            >figure {
+                width: 100%;
+                margin-bottom: 10px;
+                img{
+                    height: 100%;
+                }
             }
         }
 
+    }
+}
+@media screen and (max-width: 680px) {
+    form {
+height: max-content;
+    
+    }
+}
+@media screen and (max-width: 1780px) {
+    form {
+height: max-content;
+    
     }
 }
