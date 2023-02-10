@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/StyleReg.css';
 
-const OwnerReg = () => {
+const OwnerLogin = () => {
     return (
         <div className='wrapper h-full'>
             <div className="row mx-auto  w-full xl:w-4/6 md:p-0 ">
@@ -10,10 +10,10 @@ const OwnerReg = () => {
                     <img src="src/views/Owner/img/Login-pic.png" alt="Login" className="column-12 hidden md:block" />
                 </figure>
 
-                <form className="w-full md:w-4/12  pb-1">
+                <form action="#" className="w-full md:w-4/12  pb-1">
 
                     <div >
-                        <h1>ساخت حساب کاربری</h1>
+                        <h1>ثبت آدرس باشگاه</h1>
                         <h3>لطفا مشخصات خود را وارد کنید.</h3>
                     </div>
 
@@ -41,7 +41,7 @@ const OwnerReg = () => {
                     </div>
 
                     <div className="buttons">
-                        <button type="submit" className="btn  w-full max-w-xs" >مرحله بعد</button>
+                        <button type="submit" className="btn  w-full max-w-xs">مرحله بعد</button>
                         <a href="" className='font-medium w-full text-blue-600 dark:text-blue-500 hover:underline'>آیا اکانت کاربری دارید ؟   وارد شوید!</a>
                         <figure>
                             <img src="src/views/Owner/img/pic.png" alt="" />
@@ -52,4 +52,4 @@ const OwnerReg = () => {
         </div>
     );
 };
-export default OwnerReg;
+export default OwnerLogin;
