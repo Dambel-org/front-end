@@ -3,7 +3,6 @@ import { FA_IR } from 'language';
 import {
   Navigate,
   useLocation,
-  useNavigate,
 } from 'react-router-dom';
 
 export const TraineeBMI = () => {

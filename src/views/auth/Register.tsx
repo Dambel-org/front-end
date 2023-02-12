@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import { FA_IR } from 'language';
 import LoginImg from 'assets/login1.jpg';
 import RegMap from 'assets/reg-map.svg';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   Link,
   useNavigate,
@@ -11,8 +11,8 @@ import { Roles } from 'constants';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [role, setRole] = useState(Roles.TRAINEE);
   const handleSubmitRegister = (values: any) => {
-    const role = values.role;
     if (role === Roles.TRAINEE) {
       navigate('/auth/register/trainee', {
         state: values,
@@ -26,7 +26,7 @@ export const Register = () => {
       navigate('/register/gym/submit-gym');
     }
   };
-
+  
   const [isShowPassword, setIsShowPassword] =
     useState(false);
 
@@ -57,7 +57,6 @@ export const Register = () => {
               phoneNumber: '',
               email: '',
               password: '',
-              role: Roles.TRAINEE,
             }}
             onSubmit={handleSubmitRegister}
           >
@@ -162,7 +161,10 @@ export const Register = () => {
                   as="select"
                   className="text-center select w-full"
                   id="role"
-                  name="role"
+                  value={role}
+                  onChange={(e:ChangeEvent<HTMLSelectElement>) => {
+                    setRole(e.target.value);
+                  }}
                 >
                   <option value={Roles.TRAINEE}>
                     {FA_IR.Trainee}
@@ -179,7 +181,7 @@ export const Register = () => {
                 type="submit"
                 className="btn btn-primary btn-block"
               >
-                {FA_IR.Register}
+                {role===Roles.TRAINEE ? FA_IR.Continue :  FA_IR.Register}
               </button>
             </Form>
           </Formik>
