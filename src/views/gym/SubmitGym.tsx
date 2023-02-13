@@ -37,11 +37,41 @@ export const SubmitPrimaryGym = () => {
         <section className="w-80 flex flex-col space-y-4 mt-4">
           <Formik
             initialValues={{
+              name: '',
+              description: '',
               address: '',
             }}
             onSubmit={handleSubmitGym}
           >
             <Form className="flex flex-col items-end space-y-4">
+              <section className="w-full form-control items-end">
+                <label
+                  htmlFor="name"
+                  className="label"
+                >
+                  {FA_IR.GymName}
+                </label>
+                <Field
+                  type="text"
+                  className="input w-full"
+                  id="name"
+                  name="name"
+                />
+              </section>
+              <section className="w-full form-control items-end">
+                <label
+                  htmlFor="description"
+                  className="label"
+                >
+                  {FA_IR.GymDescription}
+                </label>
+                <Field
+                  as="textarea"
+                  className="textarea w-full resize-none"
+                  id="description"
+                  name="description"
+                />
+              </section>
               <section className="w-full form-control items-end">
                 <label
                   htmlFor="province"
@@ -111,7 +141,8 @@ export const SubmitPrimaryGym = () => {
                   </option>
                 </Field>
               </section>
-              <span className='h-12' />
+
+              <span className="h-12" />
               <button
                 type="submit"
                 className="btn btn-primary btn-block"
@@ -121,7 +152,7 @@ export const SubmitPrimaryGym = () => {
             </Form>
           </Formik>
         </section>
-        <span className='h-16' />
+        <span className="h-3" />
         <img
           src={RegMap}
           loading="lazy"

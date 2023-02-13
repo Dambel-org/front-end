@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'Roboto';
+  src: url('../assets/fonts/Vazir.ttf') format('truetype');
+}
+
+* {
+  font-family: 'Roboto';
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

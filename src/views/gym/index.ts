@@ -1,3 +1,3 @@
 export * from './PostCode';
-export * from './SubmitPrimaryGym';
+export * from './SubmitGym';
 export * from './UploadFiles';

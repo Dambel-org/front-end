@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'
-import Home from 'views/Home';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Login } from 'views/auth/Login';
 import { Register } from 'views/auth/Register';
 import { TraineeBMI } from 'views/auth/trainer';
-import { PostCode, SubmitPrimaryGym, UploadFiles } from 'views/auth/gym';
+import { PostCode, SubmitPrimaryGym, UploadFiles } from 'views/gym';
+import TraineeDashboard from 'views/trainee/Dashboard';
 
 const qc = new QueryClient();
 
@@ -21,6 +21,7 @@ function App() {
           <Route path='/register/gym/submit-gym' element={<SubmitPrimaryGym />} />
           <Route path='/register/gym/upload' element={<UploadFiles />} />
           <Route path='/register/gym/pcode' element={<PostCode />} />
+          <Route path='/trainee/dashboard' element={<TraineeDashboard />} />
         </Routes>
       </Router>
     </QueryClientProvider>

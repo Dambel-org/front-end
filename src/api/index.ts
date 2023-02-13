@@ -1,1 +1,1 @@
-export { get, post } from './methods';
+export * from './auth';

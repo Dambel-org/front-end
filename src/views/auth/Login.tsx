@@ -6,12 +6,27 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
+import { useAuthStore } from 'store';
+import { useMutation } from 'react-query';
+import { postAuthLogin } from 'api';
 
 export const Login = () => {
   const navgiate = useNavigate();
+  const setToken = useAuthStore(state => state.setToken);
+  const { mutate } = useMutation(['post-login'], postAuthLogin, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (err) => {
+      console.log(err);
+    }
+  });
   const handleSubmitLogin = (values: any) => {
-    console.log(values);
-    navgiate('/dashboard');
+    mutate({
+      email: values.email,
+      password: values.password,
+    });
+    // navgiate('/trainee/dashboard');
   };
 
   const [isShowPassword, setIsShowPassword] =
