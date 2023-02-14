@@ -1,4 +1,13 @@
-# React-Typescript-Tailwind Boilerplate 
+# Dambel Frontend 
+Dambel project frontend written in ReactJS
+
+## Tech Stack
+- ReactJS
+- Typescript
+- TailwindCSS
+- daisyUI
+- React Router v6
+- React Query
 
 ## 1. Install
 after cloning this repository, run `npm install` or `yarn install` to install all dependencies.
