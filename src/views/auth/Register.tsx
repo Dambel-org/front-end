@@ -151,8 +151,8 @@ export const Register = () => {
                   {FA_IR.MobileNumber}
                 </label>
                 <Field
-                  type="phoneNumber"
-                  className="input w-full"
+                  type="tel"
+                  className="dir-left input w-full"
                   id="phoneNumber"
                   name="phoneNumber"
                 />
@@ -166,7 +166,7 @@ export const Register = () => {
                 </label>
                 <Field
                   type="email"
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="email"
                   name="email"
                 />
@@ -184,7 +184,7 @@ export const Register = () => {
                       ? 'text'
                       : 'password'
                   }
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="password"
                   name="password"
                 />

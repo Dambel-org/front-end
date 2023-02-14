@@ -5,14 +5,14 @@ export const postAuthLogin = async (data: {
   email: string;
   password: string;
 }) => {
-  return await post('/account/login', data);
+  return await post('/account/login/', data);
 };
 
 export const postAuthRegisterOwner = async (data: {
   user: IBaseUser,
   phone_number: string,
 }) => {
-  return await post('/account/signup/gymowner', data);
+  return await post('/account/signup/gymowner/', data);
 }
 export const postAuthRegisterTrainer = async (data: {
   user: IBaseUser,
@@ -20,7 +20,7 @@ export const postAuthRegisterTrainer = async (data: {
     number: string,
   },  
 }) => {
-  return await post('/account/signup/gymowner', data);
+  return await post('/account/signup/trainer/', data);
 }
 export const postAuthRegisterTrainee = async (data: {
   user: IBaseUser,
@@ -28,5 +28,5 @@ export const postAuthRegisterTrainee = async (data: {
   height: number,
   weight: number,
 }) => {
-  return await post('/account/signup/trainee', data);
+  return await post('/account/signup/trainee/', data);
 }

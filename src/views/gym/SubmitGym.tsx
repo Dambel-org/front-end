@@ -5,24 +5,47 @@ import { Field, Form, Formik } from 'formik';
 import { FA_IR } from 'language';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAvailableProvinceList, getCityList, postGymCreate } from 'api';
-import { useMutation, useQuery } from 'react-query';
+import {
+  getAvailableProvinceList,
+  getCityList,
+  postGymCreate,
+} from 'api';
+import {
+  useMutation,
+  useQuery,
+} from 'react-query';
 
 export const SubmitPrimaryGym = () => {
   const navigate = useNavigate();
   const [province, setProvince] =
     useState<string>('');
-  
-  const { data: provinces } = useQuery('provinces', getAvailableProvinceList);
-  const {data: cities} = useQuery(['cities', province], () => getCityList(province));
-  const {mutate} = useMutation('submitGym', postGymCreate);
+
+  const { data: provinces } = useQuery(
+    'provinces',
+    getAvailableProvinceList,
+  );
+  const { data: cities } = useQuery(
+    ['cities', province],
+    () => getCityList(province),
+  );
+  const { mutate } = useMutation(
+    'submitGym',
+    postGymCreate,
+    {
+      onSuccess: () => {
+        navigate('/register/gym/pcode');
+      },
+      onError: (error) => {
+        console.log(error);
+      }
+    }
+  );
   const [city, setCity] = useState<string>('');
   const handleSubmitGym = (values: any) => {
     mutate({
       ...values,
       city_id: city,
     });
-    navigate('/register/gym/pcode');
   };
   return (
     <section className="bg-gray-50 overflow-hidden w-screen h-screen flex justify-between items-center">
@@ -102,14 +125,19 @@ export const SubmitPrimaryGym = () => {
                   <option value="none">
                     {FA_IR.NoOption}
                   </option>
-                  {provinces?.map((p:{id: number, name: string}) => (
-                    <option
-                      key={`province-${p.id}`}
-                      value={p.id}
-                    >
-                      {p.name}
-                    </option>
-                  ))}
+                  {provinces?.map(
+                    (p: {
+                      id: number;
+                      name: string;
+                    }) => (
+                      <option
+                        key={`province-${p.id}`}
+                        value={p.id}
+                      >
+                        {p.name}
+                      </option>
+                    ),
+                  )}
                 </Field>
               </section>
               <section className="w-full form-control items-end">
@@ -133,14 +161,19 @@ export const SubmitPrimaryGym = () => {
                   <option value="none">
                     {FA_IR.NoOption}
                   </option>
-                  {cities?.map((c: { id: number, name: string }) => (
-                    <option
-                      key={`city-${c.id}`}
-                      value={c.id}
-                    > 
-                      {c.name}
-                    </option>
-                  ))}
+                  {cities?.city?.map(
+                    (c: {
+                      id: number;
+                      name: string;
+                    }) => (
+                      <option
+                        key={`city-${c.id}`}
+                        value={c.id}
+                      >
+                        {c.name}
+                      </option>
+                    ),
+                  )}
                 </Field>
               </section>
               <section className="w-full form-control items-end">
@@ -153,18 +186,9 @@ export const SubmitPrimaryGym = () => {
                 <Field
                   as="textarea"
                   className="textarea resize-none w-full"
-                  id="city"
-                  value={city}
-                  onChange={(
-                    e: ChangeEvent<HTMLSelectElement>,
-                  ) => {
-                    setCity(e.target.value);
-                  }}
-                >
-                  <option value="none">
-                    {FA_IR.NoOption}
-                  </option>
-                </Field>
+                  id="address"
+                  name="address"
+                />
               </section>
 
               <span className="h-12" />

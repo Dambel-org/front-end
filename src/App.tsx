@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Login } from 'views/auth/Login';
 import { Register } from 'views/auth/Register';
-import { TraineeBMI } from 'views/auth/trainer';
+import { TraineeBMI } from 'views/auth/trainee';
 import { PostCode, SubmitPrimaryGym, UploadFiles } from 'views/gym';
 import TraineeDashboard from 'views/trainee/Dashboard';
 import { useAuthStore } from 'store';

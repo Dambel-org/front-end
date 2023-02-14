@@ -6,21 +6,21 @@ export const postGymCreate = async (data: {
   city_id: number;
   address: string;
 }) => {
-  return await post('/gym/create', data).then((res) => res.data);
+  return await post('/gym/create/', data);
 }
 
 export const getGymList = async () => {
-  return await get('/gym/list').then((res) => res.data);
+  return await get('/gym/list/');
 }
 
 export const getGymDetail = async (id: string) => {
-  return await get(`/gym/detail/${id}`).then((res) => res.data);
+  return await get(`/gym/detail/${id}/`);
 }
 
 export const getAvailableProvinceList = async () => {
-  return await get('/gym/provinces').then((res) => res.data);
+  return await get('/gym/provinces/');
 }
 
 export const getCityList = async (id: string) => {
-  return await get(`/gym/provinces/${id}`).then((res) => res.data);
+  return await get(`/gym/provinces/${id}/`);
 }

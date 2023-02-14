@@ -5,22 +5,39 @@ import { useMutation } from 'react-query';
 import {
   Navigate,
   useLocation,
+  useNavigate,
 } from 'react-router-dom';
 
 export const TraineeBMI = () => {
   const location = useLocation();
   const baseUserData = location.state;
+  const navigate = useNavigate();
   const { mutate: mutateTraineeRegister } =
     useMutation(
       ['trainee-reigster'],
       postAuthRegisterTrainee,
+      {
+        onSuccess: () => {
+          navigate('/trainee/dashboard');
+        },
+      }
     );
 
   if (!baseUserData) {
     return <Navigate to="/auth/register" />;
   }
   const handleTraineeRegister = (values: any) => {
-    console.log(values);
+    mutateTraineeRegister({
+      height: values.height,
+      weight: values.weight,
+      phone_number: baseUserData.phoneNumber,
+      user: {
+        email: baseUserData.email,
+        first_name: baseUserData.firstName,
+        last_name: baseUserData.lastName,
+        password: baseUserData.password,
+      },
+    });
   };
 
   return (
@@ -41,7 +58,7 @@ export const TraineeBMI = () => {
                 </label>
                 <Field
                   type="number"
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="height"
                   name="height"
                 />
@@ -58,7 +75,7 @@ export const TraineeBMI = () => {
                 </label>
                 <Field
                   type="number"
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="weight"
                   name="weight"
                 />

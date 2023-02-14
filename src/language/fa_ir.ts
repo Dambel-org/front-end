@@ -1,6 +1,6 @@
 export const FA_IR = {
-  WelcomeToDambel: '!سلام به دمبل خوش آمدید',
-  SignIn: '!وارد شوید',
+  WelcomeToDambel: 'سلام به دمبل خوش آمدید!',
+  SignIn: 'وارد شوید!',
   Login: 'ورود',
   Register: 'ثبت نام',
   email: 'آدرس ایمیل',
@@ -42,4 +42,11 @@ export const FA_IR = {
   ],
   GymName: 'نام باشگاه',
   GymDescription: 'توضیحات باشگاه',
+  Dambel: 'دمبل',
+  Search: 'جستجو...',
+  Home: 'خانه',
+  Wallet: 'حساب',
+  Menu: 'منو',
+  Gyms: 'باشگاه ها',
+  Profile: 'پروفایل'
 };

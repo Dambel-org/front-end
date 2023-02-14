@@ -5,6 +5,7 @@ const axios = Axios.create({
 })
 
 export const setApiHeader = (token: string) => {
+  if (!token) return;
   axios.interceptors.request.use((config) => {
     // @ts-ignore
     config.headers.Authorization = `JWT ${token}`;
@@ -16,7 +17,7 @@ export const get = async (url: string) => {
   return await axios.get(url).then((res) => res.data); 
 }
 export const post = async (url: string, data:any) => {
-  return await axios.get(url, data).then((res) => res.data); 
+  return await axios.post(url, data).then((res) => res.data); 
 }
 
 

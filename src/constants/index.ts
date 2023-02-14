@@ -3,3 +3,5 @@ export const Roles = {
   TRAINER: 'Trainer',
   TRAINEE: 'Trainee',
 }
+
+export const DESC_LIMIT = 100;

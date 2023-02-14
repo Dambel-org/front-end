@@ -6,23 +6,21 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
-import { useAuthStore } from 'store';
-import { useMutation } from 'react-query';
-import { postAuthLogin } from 'api';
 import { useLogin } from 'hooks/useLogin';
 
 export const Login = () => {
-  const { mutate } = useLogin();
+  const { mutateAsync } = useLogin();
   const handleSubmitLogin = (values: any) => {
-    mutate({
+    mutateAsync({
       email: values.email,
       password: values.password,
     });
-    // navgiate('/trainee/dashboard');
   };
 
   const [isShowPassword, setIsShowPassword] =
     React.useState(false);
+  
+  
 
   return (
     <section className="bg-gray-50 w-screen h-screen flex justify-between items-center">
@@ -59,7 +57,7 @@ export const Login = () => {
                 </label>
                 <Field
                   type="email"
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="email"
                   name="email"
                 />
@@ -77,7 +75,7 @@ export const Login = () => {
                       ? 'text'
                       : 'password'
                   }
-                  className="input w-full"
+                  className="dir-left input w-full"
                   id="password"
                   name="password"
                 />
