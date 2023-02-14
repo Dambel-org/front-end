@@ -30,7 +30,7 @@ const Dashboard = () => {
           <i className="fa-solid fa-magnifying-glass text-xl"></i>
         </button>
       </section>
-      <ul className="p-4 space-y-4">
+      <ul className="p-4 gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 dir-right">
         {gyms?.map((gym: IGym, index: number) => (
           <li
             className="card w-full bg-white py-3 px-4 shadow-md text-right"
@@ -61,7 +61,12 @@ const Dashboard = () => {
       <footer className="md:hidden fixed bottom-0 left-0 w-full p-3">
         <ul className="bg-white w-full h-12 rounded-lg flex justify-around  items-center">
           {MAIN_MENU.map((item) => (
-            <li key={item.name} className='text-2xl'><i className={item.icon} /></li>
+            <li
+              key={item.name}
+              className="text-2xl"
+            >
+              <i className={item.icon} />
+            </li>
           ))}
         </ul>
       </footer>

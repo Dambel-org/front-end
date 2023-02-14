@@ -8,6 +8,7 @@ import TraineeDashboard from 'views/trainee/Dashboard';
 import { useAuthStore } from 'store';
 import { useEffect } from 'react';
 import { setApiHeader } from 'api/methods';
+import { Roles } from 'constants';
 
 const qc = new QueryClient();
 
@@ -15,12 +16,12 @@ function App() {
   const token = useAuthStore(state => state.token);
   useEffect(() => {
     setApiHeader(token.access);
-  }, [token])
+  }, [token]);
   return (
     <QueryClientProvider client={qc}>
       <Router>
         <Routes>
-          <Route path='/' element={<Navigate  to='/auth/login' />} />
+          <Route path='/' element={token.access && token.role===Roles.TRAINEE ?  <Navigate to='/trainee/dashboard' /> : <Navigate to='/auth/login' />} />
           <Route path='/auth/login' element={<Login />} />
           <Route path='/auth/register' element={<Register />} />
           <Route path='/auth/register/trainee' element={<TraineeBMI />} />
