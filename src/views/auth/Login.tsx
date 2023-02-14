@@ -7,20 +7,24 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useLogin } from 'hooks/useLogin';
+import { Roles } from 'constants';
 
 export const Login = () => {
   const { mutateAsync } = useLogin();
+  const navigate = useNavigate();
   const handleSubmitLogin = (values: any) => {
     mutateAsync({
       email: values.email,
       password: values.password,
+    }).then((data) => {
+      if (data.role === Roles.TRAINEE) {
+        navigate('/trainee/dashboard');
+      }
     });
   };
 
   const [isShowPassword, setIsShowPassword] =
     React.useState(false);
-  
-  
 
   return (
     <section className="bg-gray-50 w-screen h-screen flex justify-between items-center">
