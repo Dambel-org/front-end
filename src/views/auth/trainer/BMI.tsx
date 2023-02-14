@@ -1,5 +1,7 @@
+import { postAuthRegisterTrainee } from 'api';
 import { Field, Form, Formik } from 'formik';
 import { FA_IR } from 'language';
+import { useMutation } from 'react-query';
 import {
   Navigate,
   useLocation,
@@ -8,8 +10,12 @@ import {
 export const TraineeBMI = () => {
   const location = useLocation();
   const baseUserData = location.state;
+  const { mutate: mutateTraineeRegister } =
+    useMutation(
+      ['trainee-reigster'],
+      postAuthRegisterTrainee,
+    );
 
-  console.log(baseUserData);
   if (!baseUserData) {
     return <Navigate to="/auth/register" />;
   }

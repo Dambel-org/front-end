@@ -4,9 +4,12 @@ import {
   persist,
 } from 'zustand/middleware';
 
+type Role = 'Trainer' | 'Trainee' | 'GymOwner' | undefined;
+
 interface IToken {
   refresh: string;
   access: string;
+  role: Role;
 }
 
 interface IAuthState {
@@ -22,6 +25,7 @@ export const useAuthStore = create<IAuthState>()(
         token: {
           access: '',
           refresh: '',
+          role: undefined,
         },
 
         setToken: (token: IToken) => {
@@ -34,6 +38,7 @@ export const useAuthStore = create<IAuthState>()(
             token: {
               access: '',
               refresh: '',
+              role: undefined,
             },
           });
         },

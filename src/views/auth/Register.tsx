@@ -8,10 +8,40 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { Roles } from 'constants';
+import { useMutation } from 'react-query';
+import {
+  postAuthRegisterOwner,
+  postAuthRegisterTrainer,
+} from 'api';
+import { useLogin } from 'hooks/useLogin';
 
 export const Register = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState(Roles.TRAINEE);
+  const { mutateAsync: login } = useLogin();
+  const { mutate: mutateTrainerRegister } =
+    useMutation(
+      ['trainer-register'],
+      postAuthRegisterTrainer,
+      {
+        onSuccess: () => {
+          navigate('/auth/login');
+        },
+        onError: () => {
+          console.log('error');
+        },
+      },
+    );
+  const { mutateAsync: mutateOwnerRegister } =
+    useMutation(
+      ['owner-register'],
+      postAuthRegisterOwner,
+      {
+        onError: () => {
+          console.log('error');
+        },
+      },
+    );
   const handleSubmitRegister = (values: any) => {
     if (role === Roles.TRAINEE) {
       navigate('/auth/register/trainee', {
@@ -19,14 +49,38 @@ export const Register = () => {
       });
     }
     if (role === Roles.TRAINER) {
-      // submit trainer
+      mutateTrainerRegister({
+        phone_number: {
+          number: values.phoneNumber,
+        },
+        user: {
+          email: values.email,
+          first_name: values.firstName,
+          last_name: values.lastName,
+          password: values.password,
+        },
+      });
     }
     if (role === Roles.GYM_OWNER) {
-      // submit gymowner
-      navigate('/register/gym/submit-gym');
+      mutateOwnerRegister({
+        phone_number: values.phoneNumber,
+        user: {
+          email: values.email,
+          first_name: values.firstName,
+          last_name: values.lastName,
+          password: values.password,
+        },
+      }).then(() => {
+        login({
+          email: values.email,
+          password: values.password,
+        }).then(() => {
+          navigate('/register/gym/submit-gym');
+        });
+      });
     }
   };
-  
+
   const [isShowPassword, setIsShowPassword] =
     useState(false);
 
@@ -162,7 +216,9 @@ export const Register = () => {
                   className="text-center select w-full"
                   id="role"
                   value={role}
-                  onChange={(e:ChangeEvent<HTMLSelectElement>) => {
+                  onChange={(
+                    e: ChangeEvent<HTMLSelectElement>,
+                  ) => {
                     setRole(e.target.value);
                   }}
                 >
@@ -181,7 +237,9 @@ export const Register = () => {
                 type="submit"
                 className="btn btn-primary btn-block"
               >
-                {role===Roles.TRAINEE ? FA_IR.Continue :  FA_IR.Register}
+                {role === Roles.TRAINEE
+                  ? FA_IR.Continue
+                  : FA_IR.Register}
               </button>
             </Form>
           </Formik>

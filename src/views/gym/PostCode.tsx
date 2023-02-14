@@ -3,14 +3,11 @@ import RegMap from 'assets/reg-map.svg';
 
 import { Field, Form, Formik } from 'formik';
 import { FA_IR } from 'language';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const PostCode = () => {
   const navigate = useNavigate();
-  const [province, setProvince] =
-    useState<string>('');
-  const [city, setCity] = useState<string>('');
   const handleSubmitGym = (values: any) => {
     // submit postcode
     navigate('/dashboard');

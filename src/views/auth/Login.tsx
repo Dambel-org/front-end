@@ -9,18 +9,10 @@ import {
 import { useAuthStore } from 'store';
 import { useMutation } from 'react-query';
 import { postAuthLogin } from 'api';
+import { useLogin } from 'hooks/useLogin';
 
 export const Login = () => {
-  const navgiate = useNavigate();
-  const setToken = useAuthStore(state => state.setToken);
-  const { mutate } = useMutation(['post-login'], postAuthLogin, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (err) => {
-      console.log(err);
-    }
-  });
+  const { mutate } = useLogin();
   const handleSubmitLogin = (values: any) => {
     mutate({
       email: values.email,

@@ -5,11 +5,17 @@ import { Register } from 'views/auth/Register';
 import { TraineeBMI } from 'views/auth/trainer';
 import { PostCode, SubmitPrimaryGym, UploadFiles } from 'views/gym';
 import TraineeDashboard from 'views/trainee/Dashboard';
+import { useAuthStore } from 'store';
+import { useEffect } from 'react';
+import { setApiHeader } from 'api/methods';
 
 const qc = new QueryClient();
 
 function App() {
-
+  const token = useAuthStore(state => state.token);
+  useEffect(() => {
+    setApiHeader(token.access);
+  }, [token])
   return (
     <QueryClientProvider client={qc}>
       <Router>
