@@ -1,12 +1,14 @@
 import { postAuthRegisterTrainee } from 'api';
+import { BMI_VALIDATION } from 'constants';
 import { Field, Form, Formik } from 'formik';
-import { FA_IR } from 'language';
+import { FA_IR, FA_IR_ERROR } from 'language';
 import { useMutation } from 'react-query';
 import {
   Navigate,
   useLocation,
   useNavigate,
 } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const TraineeBMI = () => {
   const location = useLocation();
@@ -18,9 +20,10 @@ export const TraineeBMI = () => {
       postAuthRegisterTrainee,
       {
         onSuccess: () => {
+          toast.success(FA_IR_ERROR.RegisterSuccess);
           navigate('/trainee/dashboard');
         },
-      }
+      },
     );
 
   if (!baseUserData) {
@@ -46,51 +49,69 @@ export const TraineeBMI = () => {
         <Formik
           onSubmit={handleTraineeRegister}
           initialValues={{ height: 0, weight: 0 }}
+          validationSchema={BMI_VALIDATION}
         >
-          <Form className="flex flex-col items-end space-y-4">
-            <section className="flex space-x-10">
-              <section className="w-full relative form-control items-end">
-                <label
-                  htmlFor="height"
-                  className="label"
-                >
-                  {FA_IR.Height}
-                </label>
-                <Field
-                  type="number"
-                  className="dir-left input w-full"
-                  id="height"
-                  name="height"
-                />
-                <span className="absolute top-[3.3rem] right-3">
-                  CM
-                </span>
+          {({ errors, touched }) => (
+            <Form className="flex flex-col items-end space-y-4">
+              <section className="flex space-x-10">
+                <section className="w-full relative form-control items-end">
+                  <label
+                    htmlFor="height"
+                    className="label"
+                  >
+                    {FA_IR.Height}
+                  </label>
+                  <Field
+                    type="number"
+                    className="dir-left input w-full"
+                    id="height"
+                    name="height"
+                  />
+                  <span className="absolute top-[3.3rem] right-3">
+                    CM
+                  </span>
+                </section>
+                <section className="w-full relative form-control items-end">
+                  <label
+                    htmlFor="weight"
+                    className="label"
+                  >
+                    {FA_IR.Weight}
+                  </label>
+                  <Field
+                    type="number"
+                    className="dir-left input w-full"
+                    id="weight"
+                    name="weight"
+                  />
+                  <span className="absolute top-[3.3rem] right-3">
+                    KG
+                  </span>
+                </section>
               </section>
-              <section className="w-full relative form-control items-end">
-                <label
-                  htmlFor="weight"
-                  className="label"
-                >
-                  {FA_IR.Weight}
-                </label>
-                <Field
-                  type="number"
-                  className="dir-left input w-full"
-                  id="weight"
-                  name="weight"
-                />
-                <span className="absolute top-[3.3rem] right-3">
-                  KG
-                </span>
-              </section>
-            </section>
-            <button
-              type="submit"
-              className="btn btn-primary btn-block"
-            >
-              {FA_IR.Register}
-            </button>
-          </Form>
+              <button
+                type="submit"
+                className="btn btn-primary btn-block"
+              >
+                {FA_IR.Register}
+              </button>
+              <ul className="dir-right grid grid-cols-2 place-items-center w-full">
+                {Object.entries(errors).map(
+                  ([key, value]) =>
+                    !!value &&
+                    // @ts-ignore
+                    touched[key] && (
+                      <li
+                        key={key}
+                        className="text-red-500 text-sm whitespace-nowrap"
+                      >
+                        {value}
+                      </li>
+                    ),
+                )}
+              </ul>
+            </Form>
+          )}
         </Formik>
       </section>
     </section>

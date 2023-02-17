@@ -50,3 +50,28 @@ export const FA_IR = {
   Gyms: 'باشگاه ها',
   Profile: 'پروفایل'
 };
+
+export const FA_IR_ERROR = {
+  ImproperEmailFormat: 'فرمت ایمیل صحیح نیست',
+  EmailRequired: 'ایمیل الزامی است',
+  PasswordRequired: 'گذرواژه الزامی است',
+  FirstNameRequired: 'نام الزامی است',
+  LastNameRequired: 'نام خانوادگی الزامی است',
+  MobileNumberRequired: 'شماره موبایل الزامی است',
+  MobileNumberLength: 'شماره موبایل باید 11 رقم باشد',
+  HeightRequired: 'قد الزامی است',
+  WeightRequired: 'وزن الزامی است',
+  FullAddressRequired: 'آدرس کامل الزامی است',
+  GymNameRequired: 'نام باشگاه الزامی است',
+  GymDescriptionRequired: 'توضیحات باشگاه الزامی است',
+  PostCodeRequired: 'کد مرسوله پستی الزامی است',
+  PostCodeLength: 'کد مرسوله پستی باید 10 رقم باشد',
+  PostCodeInvalid: 'کد مرسوله پستی صحیح نیست',
+  GymRegisterSuccess: 'ثبت باشگاه با موفقیت انجام شد',
+  GymRegisterFailed: 'ثبت باشگاه با مشکل مواجه شد',
+  LoginSuccess: 'ورود با موفقیت انجام شد',
+  LoginFailed: 'ورود با مشکل مواجه شد',
+  RegisterSuccess: 'ثبت نام با موفقیت انجام شد',
+  RegisterFailed: 'ثبت نام با مشکل مواجه شد',
+  EmailAlreadyExists: 'ایمیل وارد شده وجود دارد',
+};

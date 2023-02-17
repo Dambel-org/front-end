@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { FA_IR } from 'language';
+import { FA_IR, FA_IR_ERROR } from 'language';
 import LoginImg from 'assets/login1.jpg';
 import RegMap from 'assets/reg-map.svg';
 import { ChangeEvent, useState } from 'react';
@@ -7,13 +7,17 @@ import {
   Link,
   useNavigate,
 } from 'react-router-dom';
-import { Roles } from 'constants';
+import {
+  REGISTER_VALIDATION,
+  Roles,
+} from 'constants';
 import { useMutation } from 'react-query';
 import {
   postAuthRegisterOwner,
   postAuthRegisterTrainer,
 } from 'api';
 import { useLogin } from 'hooks/useLogin';
+import { toast } from 'react-toastify';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -25,10 +29,19 @@ export const Register = () => {
       postAuthRegisterTrainer,
       {
         onSuccess: () => {
+          toast.success(
+            FA_IR_ERROR.RegisterSuccess,
+          );
           navigate('/auth/login');
         },
-        onError: () => {
-          console.log('error');
+        onError: (error) => {
+          // @ts-ignore
+          const { user } = error.response.data;
+          if (user.email) {
+            toast.error(
+              FA_IR_ERROR.EmailAlreadyExists,
+            );
+          }
         },
       },
     );
@@ -37,8 +50,19 @@ export const Register = () => {
       ['owner-register'],
       postAuthRegisterOwner,
       {
-        onError: () => {
-          console.log('error');
+        onSuccess: () => {
+          toast.success(
+            FA_IR_ERROR.RegisterSuccess,
+          );
+        },
+        onError: (error) => {
+          // @ts-ignore
+          const { user } = error.response.data;
+          if (user.email) {
+            toast.error(
+              FA_IR_ERROR.EmailAlreadyExists,
+            );
+          }
         },
       },
     );
@@ -113,135 +137,155 @@ export const Register = () => {
               password: '',
             }}
             onSubmit={handleSubmitRegister}
+            validationSchema={REGISTER_VALIDATION}
           >
-            <Form className="flex flex-col items-end space-y-4">
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="firsName"
-                  className="label"
-                >
-                  {FA_IR.FirstName}
-                </label>
-                <Field
-                  type="text"
-                  className="input w-full"
-                  id="firstName"
-                  name="firstName"
-                />
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="lastName"
-                  className="label"
-                >
-                  {FA_IR.LastName}
-                </label>
-                <Field
-                  type="text"
-                  className="input w-full"
-                  id="lastName"
-                  name="lastName"
-                />
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="phoneNumber"
-                  className="label"
-                >
-                  {FA_IR.MobileNumber}
-                </label>
-                <Field
-                  type="tel"
-                  className="dir-left input w-full"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                />
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="email"
-                  className="label"
-                >
-                  {FA_IR.email}
-                </label>
-                <Field
-                  type="email"
-                  className="dir-left input w-full"
-                  id="email"
-                  name="email"
-                />
-              </section>
-              <section className="relative w-full form-control items-end">
-                <label
-                  htmlFor="password"
-                  className="label"
-                >
-                  {FA_IR.password}
-                </label>
-                <Field
-                  type={
-                    isShowPassword
-                      ? 'text'
-                      : 'password'
-                  }
-                  className="dir-left input w-full"
-                  id="password"
-                  name="password"
-                />
+            {({ errors, touched }) => (
+              <Form className="flex flex-col items-end space-y-4">
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="firsName"
+                    className="label"
+                  >
+                    {FA_IR.FirstName}
+                  </label>
+                  <Field
+                    type="text"
+                    className="input w-full"
+                    id="firstName"
+                    name="firstName"
+                  />
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="lastName"
+                    className="label"
+                  >
+                    {FA_IR.LastName}
+                  </label>
+                  <Field
+                    type="text"
+                    className="input w-full"
+                    id="lastName"
+                    name="lastName"
+                  />
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="phoneNumber"
+                    className="label"
+                  >
+                    {FA_IR.MobileNumber}
+                  </label>
+                  <Field
+                    type="tel"
+                    className="dir-left input w-full"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                  />
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="email"
+                    className="label"
+                  >
+                    {FA_IR.email}
+                  </label>
+                  <Field
+                    type="email"
+                    className="dir-left input w-full"
+                    id="email"
+                    name="email"
+                  />
+                </section>
+                <section className="relative w-full form-control items-end">
+                  <label
+                    htmlFor="password"
+                    className="label"
+                  >
+                    {FA_IR.password}
+                  </label>
+                  <Field
+                    type={
+                      isShowPassword
+                        ? 'text'
+                        : 'password'
+                    }
+                    className="dir-left input w-full"
+                    id="password"
+                    name="password"
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-[3.3rem] right-3"
+                    onClick={() =>
+                      setIsShowPassword(
+                        !isShowPassword,
+                      )
+                    }
+                  >
+                    {isShowPassword ? (
+                      <i className="fas fa-eye-slash" />
+                    ) : (
+                      <i className="fas fa-eye" />
+                    )}
+                  </button>
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="role"
+                    className="label"
+                  >
+                    {FA_IR.ChooseRole}
+                  </label>
+                  <Field
+                    as="select"
+                    className="text-center select w-full"
+                    id="role"
+                    value={role}
+                    onChange={(
+                      e: ChangeEvent<HTMLSelectElement>,
+                    ) => {
+                      setRole(e.target.value);
+                    }}
+                  >
+                    <option value={Roles.TRAINEE}>
+                      {FA_IR.Trainee}
+                    </option>
+                    <option value={Roles.TRAINER}>
+                      {FA_IR.Trainer}
+                    </option>
+                    <option
+                      value={Roles.GYM_OWNER}
+                    >
+                      {FA_IR.GymOwner}
+                    </option>
+                  </Field>
+                </section>
                 <button
-                  type="button"
-                  className="absolute top-[3.3rem] right-3"
-                  onClick={() =>
-                    setIsShowPassword(
-                      !isShowPassword,
-                    )
-                  }
+                  type="submit"
+                  className="btn btn-primary btn-block"
                 >
-                  {isShowPassword ? (
-                    <i className="fas fa-eye-slash" />
-                  ) : (
-                    <i className="fas fa-eye" />
-                  )}
+                  {role === Roles.TRAINEE
+                    ? FA_IR.Continue
+                    : FA_IR.Register}
                 </button>
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="role"
-                  className="label"
-                >
-                  {FA_IR.ChooseRole}
-                </label>
-                <Field
-                  as="select"
-                  className="text-center select w-full"
-                  id="role"
-                  value={role}
-                  onChange={(
-                    e: ChangeEvent<HTMLSelectElement>,
-                  ) => {
-                    setRole(e.target.value);
-                  }}
-                >
-                  <option value={Roles.TRAINEE}>
-                    {FA_IR.Trainee}
-                  </option>
-                  <option value={Roles.TRAINER}>
-                    {FA_IR.Trainer}
-                  </option>
-                  <option value={Roles.GYM_OWNER}>
-                    {FA_IR.GymOwner}
-                  </option>
-                </Field>
-              </section>
-              <button
-                type="submit"
-                className="btn btn-primary btn-block"
-              >
-                {role === Roles.TRAINEE
-                  ? FA_IR.Continue
-                  : FA_IR.Register}
-              </button>
-            </Form>
+                <ul className="dir-right grid grid-cols-2 place-items-center w-full">
+                  {Object.entries(errors).map(
+                    ([key, value]) =>
+                      !!value &&
+                      // @ts-ignore
+                      touched[key] && (
+                        <li
+                          key={key}
+                          className="text-red-500 text-sm whitespace-nowrap"
+                        >
+                          {value}
+                        </li>
+                      ),
+                  )}
+                </ul>
+              </Form>
+            )}
           </Formik>
 
           <section className="text-sm text-center">
@@ -259,7 +303,7 @@ export const Register = () => {
         <img
           src={RegMap}
           loading="lazy"
-          className="pt-6 hidden sm:block md:w-96"
+          className="pt-6 hidden sm:block md:w-80"
           alt="register-map"
         />
       </section>

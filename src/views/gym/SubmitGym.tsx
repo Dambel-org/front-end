@@ -2,7 +2,7 @@ import RegImg from 'assets/reg2.jpg';
 import RegMap from 'assets/reg-map.svg';
 
 import { Field, Form, Formik } from 'formik';
-import { FA_IR } from 'language';
+import { FA_IR, FA_IR_ERROR } from 'language';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,6 +14,8 @@ import {
   useMutation,
   useQuery,
 } from 'react-query';
+import { SUBMIT_GYM_VALIDATION } from 'constants';
+import { toast } from 'react-toastify';
 
 export const SubmitPrimaryGym = () => {
   const navigate = useNavigate();
@@ -33,12 +35,17 @@ export const SubmitPrimaryGym = () => {
     postGymCreate,
     {
       onSuccess: () => {
+        toast.success(
+          FA_IR_ERROR.GymRegisterSuccess,
+        );
         navigate('/register/gym/pcode');
       },
-      onError: (error) => {
-        console.log(error);
-      }
-    }
+      onError: () => {
+        toast.error(
+          FA_IR_ERROR.GymRegisterFailed,
+        );
+      },
+    },
   );
   const [city, setCity] = useState<string>('');
   const handleSubmitGym = (values: any) => {
@@ -73,132 +80,152 @@ export const SubmitPrimaryGym = () => {
               description: '',
               address: '',
             }}
+            validationSchema={
+              SUBMIT_GYM_VALIDATION
+            }
             onSubmit={handleSubmitGym}
           >
-            <Form className="flex flex-col items-end space-y-4">
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="name"
-                  className="label"
-                >
-                  {FA_IR.GymName}
-                </label>
-                <Field
-                  type="text"
-                  className="input w-full"
-                  id="name"
-                  name="name"
-                />
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="description"
-                  className="label"
-                >
-                  {FA_IR.GymDescription}
-                </label>
-                <Field
-                  as="textarea"
-                  className="textarea w-full resize-none"
-                  id="description"
-                  name="description"
-                />
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="province"
-                  className="label"
-                >
-                  {FA_IR.Province}
-                </label>
-                <Field
-                  as="select"
-                  className="text-center select w-full"
-                  id="province"
-                  value={province}
-                  onChange={(
-                    e: ChangeEvent<HTMLSelectElement>,
-                  ) => {
-                    setProvince(e.target.value);
-                  }}
-                >
-                  <option value="none">
-                    {FA_IR.NoOption}
-                  </option>
-                  {provinces?.map(
-                    (p: {
-                      id: number;
-                      name: string;
-                    }) => (
-                      <option
-                        key={`province-${p.id}`}
-                        value={p.id}
-                      >
-                        {p.name}
-                      </option>
-                    ),
-                  )}
-                </Field>
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="province"
-                  className="label"
-                >
-                  {FA_IR.City}
-                </label>
-                <Field
-                  as="select"
-                  className="text-center select w-full"
-                  id="city"
-                  value={city}
-                  onChange={(
-                    e: ChangeEvent<HTMLSelectElement>,
-                  ) => {
-                    setCity(e.target.value);
-                  }}
-                >
-                  <option value="none">
-                    {FA_IR.NoOption}
-                  </option>
-                  {cities?.city?.map(
-                    (c: {
-                      id: number;
-                      name: string;
-                    }) => (
-                      <option
-                        key={`city-${c.id}`}
-                        value={c.id}
-                      >
-                        {c.name}
-                      </option>
-                    ),
-                  )}
-                </Field>
-              </section>
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="address"
-                  className="label"
-                >
-                  {FA_IR.FullAddress}
-                </label>
-                <Field
-                  as="textarea"
-                  className="textarea resize-none w-full"
-                  id="address"
-                  name="address"
-                />
-              </section>
+            {({ errors, touched }) => (
+              <Form className="flex flex-col items-end space-y-4">
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="name"
+                    className="label"
+                  >
+                    {FA_IR.GymName}
+                  </label>
+                  <Field
+                    type="text"
+                    className="input w-full"
+                    id="name"
+                    name="name"
+                  />
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="description"
+                    className="label"
+                  >
+                    {FA_IR.GymDescription}
+                  </label>
+                  <Field
+                    as="textarea"
+                    className="textarea w-full resize-none"
+                    id="description"
+                    name="description"
+                  />
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="province"
+                    className="label"
+                  >
+                    {FA_IR.Province}
+                  </label>
+                  <Field
+                    as="select"
+                    className="text-center select w-full"
+                    id="province"
+                    value={province}
+                    onChange={(
+                      e: ChangeEvent<HTMLSelectElement>,
+                    ) => {
+                      setProvince(e.target.value);
+                    }}
+                  >
+                    <option value="none">
+                      {FA_IR.NoOption}
+                    </option>
+                    {provinces?.map(
+                      (p: {
+                        id: number;
+                        name: string;
+                      }) => (
+                        <option
+                          key={`province-${p.id}`}
+                          value={p.id}
+                        >
+                          {p.name}
+                        </option>
+                      ),
+                    )}
+                  </Field>
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="province"
+                    className="label"
+                  >
+                    {FA_IR.City}
+                  </label>
+                  <Field
+                    as="select"
+                    className="text-center select w-full"
+                    id="city"
+                    value={city}
+                    onChange={(
+                      e: ChangeEvent<HTMLSelectElement>,
+                    ) => {
+                      setCity(e.target.value);
+                    }}
+                  >
+                    <option value="none">
+                      {FA_IR.NoOption}
+                    </option>
+                    {cities?.city?.map(
+                      (c: {
+                        id: number;
+                        name: string;
+                      }) => (
+                        <option
+                          key={`city-${c.id}`}
+                          value={c.id}
+                        >
+                          {c.name}
+                        </option>
+                      ),
+                    )}
+                  </Field>
+                </section>
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="address"
+                    className="label"
+                  >
+                    {FA_IR.FullAddress}
+                  </label>
+                  <Field
+                    as="textarea"
+                    className="textarea resize-none w-full"
+                    id="address"
+                    name="address"
+                  />
+                </section>
 
-              <span className="h-12" />
-              <button
-                type="submit"
-                className="btn btn-primary btn-block"
-              >
-                {FA_IR.RegisterGym}
-              </button>
-            </Form>
+                <span className="h-12" />
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block"
+                >
+                  {FA_IR.RegisterGym}
+                </button>
+                <ul className="dir-right grid grid-cols-2 place-items-center w-full">
+                  {Object.entries(errors).map(
+                    ([key, value]) =>
+                      !!value &&
+                      // @ts-ignore
+                      touched[key] && (
+                        <li
+                          key={key}
+                          className="text-red-500 text-sm whitespace-nowrap"
+                        >
+                          {value}
+                        </li>
+                      ),
+                  )}
+                </ul>
+              </Form>
+            )}
           </Formik>
         </section>
         <span className="h-3" />

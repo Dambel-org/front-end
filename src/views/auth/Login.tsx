@@ -7,7 +7,11 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useLogin } from 'hooks/useLogin';
-import { Roles } from 'constants';
+import {
+  LOGIN_VALIDATION,
+  Roles,
+} from 'constants';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
   const { mutateAsync } = useLogin();
@@ -49,70 +53,88 @@ export const Login = () => {
               email: '',
               password: '',
             }}
+            validationSchema={LOGIN_VALIDATION}
             onSubmit={handleSubmitLogin}
           >
-            <Form className="flex flex-col items-end space-y-4">
-              <section className="w-full form-control items-end">
-                <label
-                  htmlFor="email"
-                  className="label"
+            {({ errors, touched }) => (
+              <Form className="flex flex-col items-end space-y-4">
+                <section className="w-full form-control items-end">
+                  <label
+                    htmlFor="email"
+                    className="label"
+                  >
+                    {FA_IR.email}
+                  </label>
+                  <Field
+                    type="email"
+                    className="dir-left input w-full"
+                    id="email"
+                    name="email"
+                  />
+                </section>
+                <section className="relative w-full form-control items-end">
+                  <label
+                    htmlFor="password"
+                    className="label"
+                  >
+                    {FA_IR.password}
+                  </label>
+                  <Field
+                    type={
+                      isShowPassword
+                        ? 'text'
+                        : 'password'
+                    }
+                    className="dir-left input w-full"
+                    id="password"
+                    name="password"
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-[3.3rem] right-3"
+                    onClick={() =>
+                      setIsShowPassword(
+                        !isShowPassword,
+                      )
+                    }
+                  >
+                    {isShowPassword ? (
+                      <i className="fas fa-eye-slash" />
+                    ) : (
+                      <i className="fas fa-eye" />
+                    )}
+                  </button>
+                </section>
+                <Link
+                  to="/auth/forgot-password"
+                  className="text-blue-300 text-sm"
                 >
-                  {FA_IR.email}
-                </label>
-                <Field
-                  type="email"
-                  className="dir-left input w-full"
-                  id="email"
-                  name="email"
-                />
-              </section>
-              <section className="relative w-full form-control items-end">
-                <label
-                  htmlFor="password"
-                  className="label"
-                >
-                  {FA_IR.password}
-                </label>
-                <Field
-                  type={
-                    isShowPassword
-                      ? 'text'
-                      : 'password'
-                  }
-                  className="dir-left input w-full"
-                  id="password"
-                  name="password"
-                />
+                  {FA_IR.ForgotPassword}
+                </Link>
+                <span className="h-12" />
                 <button
-                  type="button"
-                  className="absolute top-[3.3rem] right-3"
-                  onClick={() =>
-                    setIsShowPassword(
-                      !isShowPassword,
-                    )
-                  }
+                  type="submit"
+                  className="btn btn-primary btn-block"
                 >
-                  {isShowPassword ? (
-                    <i className="fas fa-eye-slash" />
-                  ) : (
-                    <i className="fas fa-eye" />
-                  )}
+                  {FA_IR.Login}
                 </button>
-              </section>
-              <Link
-                to="/auth/forgot-password"
-                className="text-blue-300 text-sm"
-              >
-                {FA_IR.ForgotPassword}
-              </Link>
-              <span className="h-12" />
-              <button
-                type="submit"
-                className="btn btn-primary btn-block"
-              >
-                {FA_IR.Login}
-              </button>
-            </Form>
+                <ul className="dir-right grid grid-cols-2 place-items-center w-full">
+                  {Object.entries(errors).map(
+                    ([key, value]) =>
+                    !!value &&
+                    // @ts-ignore
+                      touched[key] && (
+                        <li
+                          key={key}
+                          className="text-red-500 text-sm whitespace-nowrap"
+                        >
+                          {value}
+                        </li>
+                      ),
+                  )}
+                </ul>
+              </Form>
+            )}
           </Formik>
           <span className="h-4" />
           <section className="text-sm text-right">

@@ -4,7 +4,6 @@ import { MAIN_MENU } from 'constants/menu';
 import { IGym } from 'interfaces';
 import { FA_IR } from 'language';
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
 import { limitString } from 'utils/string';
 
 const Dashboard = () => {
